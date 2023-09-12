@@ -1,3 +1,4 @@
+using EmployeesApi;
 using EmployeesApi.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +13,19 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("employees") ?? throw new Exception("The connection string is missing");
 
+// One Scoped Service called EmployeesDataContext, and one Singleton Service that manages the connections to the database.
 builder.Services.AddDbContext<EmployeesDataContext>(options =>
 {
     options.UseNpgsql(connectionString);
 });
+
+// When it goes to create our EmployeesController, it needs something that can manage employees.
+builder.Services.AddScoped<IManageEmployees, EfEmployeeManager>();
+
+
+// 120ms
+
+builder.Services.AddEmployeeMapperProfiles();
 
 var app = builder.Build();
 
