@@ -11,7 +11,6 @@ public static class MapperExtensions
         var mapperConfig = new MapperConfiguration(options =>
         {
             options.AddProfile<EmployeeMaps>();
-            options.AddProfile<CandidateMaps>();
         });
 
         var mapper = mapperConfig.CreateMapper(); // IMapper

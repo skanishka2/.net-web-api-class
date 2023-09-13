@@ -20,4 +20,3 @@ public record EmployeeSummaryListItemResponse
     [Required, EmailAddress]
     public string EmailAddress { get; set; } = string.Empty;
 }
-

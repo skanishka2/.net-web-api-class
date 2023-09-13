@@ -14,7 +14,7 @@ public class CandidatesController : ControllerBase
     public async Task<ActionResult<CandidateResponseModel>> AddACandidate([FromBody] CandidateRequestModel request)
     {
         CandidateResponseModel response = await _candidateManager.CreateCandidateAsync(request);
-        return CreatedAtRoute("candidates-getbyid", new { id=response.Id }, response);
+        return CreatedAtRoute("candidates-getbyid", new { id = response.Id }, response);
     }
 
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 60)]
@@ -22,7 +22,7 @@ public class CandidatesController : ControllerBase
     public async Task<ActionResult<CandidateResponseModel>> GetCandidateByid(string id)
     {
         CandidateResponseModel? response = await _candidateManager.GetCandidateByIdAsync(id);
-        if(response is null)
+        if (response is null)
         {
             return NotFound();
         }

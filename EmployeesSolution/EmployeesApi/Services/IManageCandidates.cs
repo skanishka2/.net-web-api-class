@@ -1,5 +1,7 @@
 ﻿namespace EmployeesApi.Services;
 
-public class IManageCandidates
+public interface IManageCandidates
 {
+    Task<CandidateResponseModel> CreateCandidateAsync(CandidateRequestModel request);
+    Task<CandidateResponseModel?> GetCandidateByIdAsync(string id);
 }

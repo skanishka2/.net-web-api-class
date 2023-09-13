@@ -2,8 +2,7 @@
 
 public class CandidateEntity
 {
-
-    public int Id { get; set; } 
+    public string Id { get; set; } = string.Empty;
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public decimal RequiredSalaryMin { get; set; }
@@ -12,5 +11,7 @@ public class CandidateEntity
     public string Notes { get; set; } = string.Empty;
     public CandidateStatus Status { get; set; } = CandidateStatus.AwaitingManager;
     public DateTimeOffset DateCreated { get; set; }
+
+
 
 }

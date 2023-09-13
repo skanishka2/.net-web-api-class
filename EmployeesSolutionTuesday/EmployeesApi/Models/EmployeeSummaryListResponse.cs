@@ -9,4 +9,3 @@ public record EmployeeSummaryListResponse
 
     public string? ShowingDepartment { get; set; }
 }
-

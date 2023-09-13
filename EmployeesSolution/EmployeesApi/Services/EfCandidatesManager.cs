@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using EmployeesApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesApi.Services;
 
 public class EfCandidatesManager : IManageCandidates
 {
+
     private readonly EmployeesDataContext _context;
     private readonly IMapper _mapper;
     private readonly MapperConfiguration _mapperConfig;
@@ -16,8 +19,24 @@ public class EfCandidatesManager : IManageCandidates
         _mapperConfig = mapperConfig;
     }
 
-    public Task<CandidateResponseModel> CreateCandidateAsync(CandidateRequestModel request)
+    public async Task<CandidateResponseModel> CreateCandidateAsync(CandidateRequestModel request)
     {
-        throw new NotImplementedException();
+
+        var candidate = _mapper.Map<CandidateEntity>(request);
+        _context.Candidates.Add(candidate);
+        await _context.SaveChangesAsync();
+        return _mapper.Map<CandidateResponseModel>(candidate);
+ 
+    }
+
+    public async Task<CandidateResponseModel?> GetCandidateByIdAsync(string id)
+    {
+        if(int.TryParse(id, out var candidateId))
+        {
+            return await _context.Candidates.Where(c => c.Id == candidateId)
+                .ProjectTo<CandidateResponseModel>(_mapperConfig)
+                .SingleOrDefaultAsync();
+        }
+        return null;
     }
 }
